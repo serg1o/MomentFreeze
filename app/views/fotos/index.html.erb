@@ -1,2 +1,7 @@
-<h2>fotos</h2>
-<%= render_flickr_sidebar_widget("129625689@N05") %>
+<h2>Search Photos by user id</h2>
+
+<%= form_tag(show_user_photos_path, method: :get) do %>
+  <%= label_tag(:flickr_id, "Flickr ID:") %>
+  <%= text_field_tag(:flickr_id) %>
+  <%= submit_tag("Search Photos") %>
+<% end %>

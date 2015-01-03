@@ -11,9 +11,17 @@ module FlickrHelper
   
   def render_flickr_sidebar_widget(user_id, photo_count = 12, columns = 2)
     begin
-      #photos = user_photos("129625689@N05", photo_count).in_groups_of(2)
       photos = user_photos(user_id, photo_count).in_groups_of(2)
-     # photos = user_photos("12864272@N02", photo_count).in_groups_of(2)
+      render partial: '/flickr/sidebar_widget', locals: { photos: photos }
+    rescue Exception
+      render partial: '/flickr/unavailable'
+    end
+  end
+
+  def render_flickr_sidebar(user_id = "129625689@N05", photo_count = 12, columns = 2)
+    begin
+      user_id = params[:flickr_id] unless params[:flickr_id].blank?
+      photos = user_photos(user_id, photo_count).in_groups_of(6)
       render partial: '/flickr/sidebar_widget', locals: { photos: photos }
     rescue Exception
       render partial: '/flickr/unavailable'
